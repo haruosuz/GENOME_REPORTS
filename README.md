@@ -1,7 +1,7 @@
 ----------
 
-Haruo Suzuki <haruo at g-language.org> 
-Last Update: 2015-10-08
+Haruo Suzuki <haruo @g-language.org>  
+Last Update: 2015-10-08  
 
 ----------
 
