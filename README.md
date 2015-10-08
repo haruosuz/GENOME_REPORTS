@@ -153,8 +153,8 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 
 #### Count '2 Kingdom'
 
-	FILE=plasmids.txt
 	FILE=overview.txt
+	FILE=plasmids.txt
 	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | sed s/^/$'\t'/g
 
 ##### overview.txt
@@ -167,9 +167,9 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 
 ##### plasmids.txt
 
-	 108 Eukaryota
 	 163 Archaea
 	5878 Bacteria
+	 108 Eukaryota
 
 #### Count '5 Group'
 
@@ -177,6 +177,35 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 	FILE=eukaryotes.txt
 	FILE=viruses.txt
 	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort | sed s/^/$'\t'/g
+
+##### eukaryotes.txt
+
+	  13 Other
+	 248 Plants
+	 311 Protists
+	 687 Animals
+	1168 Fungi
+
+##### viruses.txt
+
+	   1 Deltavirus
+	   2 unclassified archaeal viruses
+	   4 Avsunviroidae
+	   5 unclassified viroids
+	   5 unclassified virophages
+	   6 Other
+	  10 unassigned viruses
+	  31 unclassified phages
+	  36 Pospiviroidae
+	  58 unclassified viruses
+	 138 Retro-transcribing viruses
+	 217 Satellites
+	 223 dsRNA viruses
+	 843 ssDNA viruses
+	1304 ssRNA viruses
+	2067 dsDNA viruses, no RNA stage
+
+##### prokaryotes.txt
 
 	   1 Aquificae
 	   1 Caldiserica
@@ -205,6 +234,16 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 	4039 Proteobacteria
 	4785 Firmicutes
 
+#### Check Viruses.ids
+
+	grep 'Dengue virus' Viruses.ids | sed s/^/$'\t'/g
+
+	11053	NC_001477	9626685	0	U88536	Dengue virus 1	viral segment Unknown  
+	11060	NC_001474	158976983	0	U87411	Dengue virus 2	viral segment Unknown  
+	11069	NC_001475	163644368	0	AY099336	Dengue virus 3	viral segment Unknown  
+	11070	NC_002640	12084822	0	AF326825	Dengue virus 4	viral segment Unknown 
+
+
 ----------
 
 ## Results & Discussion
@@ -213,7 +252,10 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 ----------
 
 ## References
-- []()
 - [Nucleic Acids Res. 2015 Jan;43(Database issue):D599-605. "Update on RefSeq microbial genomes resources."](http://www.ncbi.nlm.nih.gov/pubmed/25510495)
+- []()
+- []()
+- []()
+- [ncbi_ftp_download](https://github.com/aleimba/bac-genomics-scripts/tree/master/ncbi_ftp_download) | Scripts to batch download all bacterial genomes of a genus/species from NCBI's FTP site (RefSeq and GenBank) for easy access.
 
 ----------
