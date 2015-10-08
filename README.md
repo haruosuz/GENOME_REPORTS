@@ -25,7 +25,7 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 
 ## Scripts
 
-*get_GENOME_REPORTS.sh*:
+*bin/get_GENOME_REPORTS.sh*:
 
 	wget -r -l 1 -nd -A .txt,README ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/
 	wget -r -l 2 -nd -A .ids ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/
@@ -43,8 +43,87 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 
 #### Check columns
 
-	cat prokaryotes.txt | tr '\t' '\n' | less
+	FILE=prokaryotes.txt
+	FILE=viruses.txt
+	FILE=eukaryotes.txt
+	FILE=plasmids.txt
+	FILE=overview.txt
+	cat $FILE | tr '\t' '\n' | less
 	# -N # Constantly display line numbers  (press RETURN) # q
+
+##### overview.txt
+
+      1 #Organism/Name
+      2 Kingdom
+      3 Group
+      4 SubGroup
+      5 Size (Mb)
+      6 Chrs
+      7 Organelles
+      8 Plasmids
+      9 BioProjects
+
+##### plasmids.txt
+
+      1 #Organism/Name
+      2 Kingdom
+      3 Group
+      4 SubGroup
+      5 Plasmid Name
+      6 RefSeq
+      7 INSDC
+      8 Size (Kb)
+      9 GC%
+     10 Protein
+     11 rRNA
+     12 tRNA
+     13 Other RNA
+     14 Gene
+     15 Pseudogene
+
+##### viruses.txt
+
+      1 #Organism/Name
+      2 TaxID
+      3 BioProject Accession
+      4 BioProject ID
+      5 Group
+      6 SubGroup
+      7 Size (Kb)
+      8 GC%
+      9 Host
+     10 Segmemts
+     11 Genes
+     12 Proteins
+     13 Release Date
+     14 Modify Date
+     15 Status
+
+##### eukaryotes.txt
+
+      1 #Organism/Name
+      2 TaxID
+      3 BioProject Accession
+      4 BioProject ID
+      5 Group
+      6 SubGroup
+      7 Size (Mb)
+      8 GC%
+      9 Assembly Accession
+     10 Chromosomes
+     11 Organelles
+     12 Plasmids
+     13 WGS
+     14 Scaffolds
+     15 Genes
+     16 Proteins
+     17 Release Date
+     18 Modify Date
+     19 Status
+     20 Center
+     21 BioSample Accession
+
+##### prokaryotes.txt
 
       1 #Organism/Name
       2 TaxID
@@ -72,15 +151,37 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
      24 FTP Path
      25 Pubmed ID
 
-#### Count Groups
+#### Count '2 Kingdom'
 
-	cut -f5 prokaryotes.txt | sort | uniq -c | sort | sed s/^/$'\t'/g
+	FILE=plasmids.txt
+	FILE=overview.txt
+	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | sed s/^/$'\t'/g
+
+##### overview.txt
+
+	 407 Archaea
+	6931 Bacteria
+	1540 Eukaryota
+	  45 Viroids
+	4808 Viruses
+
+##### plasmids.txt
+
+	 108 Eukaryota
+	 163 Archaea
+	5878 Bacteria
+
+#### Count '5 Group'
+
+	FILE=prokaryotes.txt
+	FILE=eukaryotes.txt
+	FILE=viruses.txt
+	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort | sed s/^/$'\t'/g
 
 	   1 Aquificae
 	   1 Caldiserica
 	   1 Deinococcus-Thermus
 	   1 Gemmatimonadetes
-	   1 Group
 	   1 Parvarchaeota
 	   1 Thermotogae
 	   2 Nitrospirae
