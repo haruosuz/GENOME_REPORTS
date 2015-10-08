@@ -1,12 +1,23 @@
 ----------
 
-[Haruo Suzuki](haruo@g-language.org)  
+Haruo Suzuki <haruo at g-language.org> 
 Last Update: 2015-10-08
 
 ----------
 
 # GENOME_REPORTS project
 Project started 2015-10-08.
+
+## Environment
+Mac OS X 10.9.5
+
+	$uname -a
+	Darwin localhost 13.4.0 Darwin Kernel Version 13.4.0: Wed Mar 18 16:20:14 PDT 2015; root:xnu-2422.115.14~1/RELEASE_X86_64 x86_64
+
+	> sessionInfo()
+	R version 3.2.2 (2015-08-14)
+	Platform: x86_64-apple-darwin13.4.0 (64-bit)
+	Running under: OS X 10.9.5 (Mavericks)
 
 ## Project directories
 
