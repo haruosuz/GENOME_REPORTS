@@ -1,6 +1,6 @@
 ----------
 
-Haruo Suzuki <haruo@g-language.org>  
+[Haruo Suzuki](haruo@g-language.org)  
 Last Update: 2015-10-08
 
 ----------
@@ -233,6 +233,30 @@ Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/geno
 	1789 Actinobacteria
 	4039 Proteobacteria
 	4785 Firmicutes
+
+#### Count '9 Host' in viruses.txt
+
+	FILE=viruses.txt
+	grep -v "^#" $FILE | cut -f9 | sort | uniq -c | sort | sed s/^/$'\t'/g
+
+	   3 enviroment
+	   5 diatom
+	   5 human
+	   5 invertebrates, vertebrates
+	  15 -
+	  36 protozoa
+	  39 algae
+	  40 vertebrates, invertebrates
+	  59 invertebrates, plants
+	  63 archaea
+	  69 environment
+	  82 vertebrates, invertebrates, human
+	  99 fungi
+	 287 vertebrates, human
+	 324 invertebrates
+	 888 vertebrates
+	1331 plants
+	1600 bacteria
 
 #### Check Viruses.ids
 
