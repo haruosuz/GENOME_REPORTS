@@ -1,6 +1,6 @@
 ----------
 
-Haruo Suzuki <haruo@g-language.org>  
+Haruo Suzuki (haruo[at]g-language[dot]org)  
 Last Update: 2015-10-08  
 
 ----------
@@ -28,22 +28,28 @@ Mac OS X 10.9.5
 	  results/: results of analyses
 
 ## Data
-Data was downloaded on 2015-10-08 from the FTP site <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/> into `data/`, using:
+Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
-	cd data/
 	(time sh ../bin/get_GENOME_REPORTS.sh &) > stderr.log 2>&1
 
 
 ## Scripts
 
-*bin/get_GENOME_REPORTS.sh*:
+*get_GENOME_REPORTS.sh*:
 
 	wget -r -l 1 -nd -A .txt,README ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/
 	wget -r -l 2 -nd -A .ids ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/
 
+*blast_parser.pl*:
+
+`blast_parser.pl` was downloaded on 2015-10-09 from <http://kirill-kryukov.com/study/tools/blast-parser/> into `bin/`, using:
+
+	wget http://kirill-kryukov.com/study/tools/blast-parser/blast_parser_1.1.5.zip
+	unzip blast_parser_1.1.5.zip
+
 ----------
 
-## Codes
+## Steps
 
 	mkdir -p GENOME_REPORTS/{bin,data,results}
 	mkdir results-$(date +%F)
