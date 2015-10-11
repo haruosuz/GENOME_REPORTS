@@ -58,116 +58,6 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 	cd data/
 
-#### Check columns
-
-	FILE=prokaryotes.txt
-	FILE=viruses.txt
-	FILE=eukaryotes.txt
-	FILE=plasmids.txt
-	FILE=overview.txt
-	cat $FILE | tr '\t' '\n' | less
-	# -N # Constantly display line numbers  (press RETURN) # q
-
-##### overview.txt
-
-      1 #Organism/Name
-      2 Kingdom
-      3 Group
-      4 SubGroup
-      5 Size (Mb)
-      6 Chrs
-      7 Organelles
-      8 Plasmids
-      9 BioProjects
-
-##### plasmids.txt
-
-      1 #Organism/Name
-      2 Kingdom
-      3 Group
-      4 SubGroup
-      5 Plasmid Name
-      6 RefSeq
-      7 INSDC
-      8 Size (Kb)
-      9 GC%
-     10 Protein
-     11 rRNA
-     12 tRNA
-     13 Other RNA
-     14 Gene
-     15 Pseudogene
-
-##### viruses.txt
-
-      1 #Organism/Name
-      2 TaxID
-      3 BioProject Accession
-      4 BioProject ID
-      5 Group
-      6 SubGroup
-      7 Size (Kb)
-      8 GC%
-      9 Host
-     10 Segmemts
-     11 Genes
-     12 Proteins
-     13 Release Date
-     14 Modify Date
-     15 Status
-
-##### eukaryotes.txt
-
-      1 #Organism/Name
-      2 TaxID
-      3 BioProject Accession
-      4 BioProject ID
-      5 Group
-      6 SubGroup
-      7 Size (Mb)
-      8 GC%
-      9 Assembly Accession
-     10 Chromosomes
-     11 Organelles
-     12 Plasmids
-     13 WGS
-     14 Scaffolds
-     15 Genes
-     16 Proteins
-     17 Release Date
-     18 Modify Date
-     19 Status
-     20 Center
-     21 BioSample Accession
-
-##### prokaryotes.txt
-
-      1 #Organism/Name
-      2 TaxID
-      3 BioProject Accession
-      4 BioProject ID
-      5 Group
-      6 SubGroup
-      7 Size (Mb)
-      8 GC%
-      9 Chromosomes/RefSeq
-     10 Chromosomes/INSDC
-     11 Plasmids/RefSeq
-     12 Plasmids/INSDC
-     13 WGS
-     14 Scaffolds
-     15 Genes
-     16 Proteins
-     17 Release Date
-     18 Modify Date
-     19 Status
-     20 Center
-     21 BioSample Accession
-     22 Assembly Accession
-     23 Reference
-     24 FTP Path
-     25 Pubmed ID
-
 #### Count '2 Kingdom'
 
 	FILE=plasmids.txt
@@ -183,7 +73,7 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	4808 Viruses
 
 [![](https://github.com/haruosuz/GENOME_REPORTS/blob/master/images/wordle_overview.png)]()
-Word clouds (http://www.wordle.net/advanced) representing the abundance of genome projects. The font size of each Group is proportional to its number in <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/overview.txt>.
+[Word clouds](http://www.wordle.net/advanced) representing the abundance of genome projects. The font size of each Kingdom is proportional to its number in <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/overview.txt>.
 
 ##### plasmids.txt
 
@@ -205,6 +95,9 @@ Word clouds (http://www.wordle.net/advanced) representing the abundance of genom
 	 311 Protists
 	 687 Animals
 	1168 Fungi
+
+[![](https://github.com/haruosuz/GENOME_REPORTS/blob/master/images/wordle_eukaryotes.png)]()
+[Word clouds](http://www.wordle.net/advanced) representing the abundance of genome projects. The font size of each Group is proportional to its number in <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt>.
 
 ##### viruses.txt
 
@@ -333,6 +226,118 @@ Word clouds (http://www.wordle.net/advanced) representing the abundance of genom
 	11060	NC_001474	158976983	0	U87411	Dengue virus 2	viral segment Unknown  
 	11069	NC_001475	163644368	0	AY099336	Dengue virus 3	viral segment Unknown  
 	11070	NC_002640	12084822	0	AF326825	Dengue virus 4	viral segment Unknown  
+
+----------
+
+#### Check columns
+
+	FILE=prokaryotes.txt
+	FILE=viruses.txt
+	FILE=eukaryotes.txt
+	FILE=plasmids.txt
+	FILE=overview.txt
+	cat $FILE | tr '\t' '\n' | less
+	# -N # Constantly display line numbers  (press RETURN) # q
+
+##### overview.txt
+
+      1 #Organism/Name
+      2 Kingdom
+      3 Group
+      4 SubGroup
+      5 Size (Mb)
+      6 Chrs
+      7 Organelles
+      8 Plasmids
+      9 BioProjects
+
+##### plasmids.txt
+
+      1 #Organism/Name
+      2 Kingdom
+      3 Group
+      4 SubGroup
+      5 Plasmid Name
+      6 RefSeq
+      7 INSDC
+      8 Size (Kb)
+      9 GC%
+     10 Protein
+     11 rRNA
+     12 tRNA
+     13 Other RNA
+     14 Gene
+     15 Pseudogene
+
+##### viruses.txt
+
+      1 #Organism/Name
+      2 TaxID
+      3 BioProject Accession
+      4 BioProject ID
+      5 Group
+      6 SubGroup
+      7 Size (Kb)
+      8 GC%
+      9 Host
+     10 Segmemts
+     11 Genes
+     12 Proteins
+     13 Release Date
+     14 Modify Date
+     15 Status
+
+##### eukaryotes.txt
+
+      1 #Organism/Name
+      2 TaxID
+      3 BioProject Accession
+      4 BioProject ID
+      5 Group
+      6 SubGroup
+      7 Size (Mb)
+      8 GC%
+      9 Assembly Accession
+     10 Chromosomes
+     11 Organelles
+     12 Plasmids
+     13 WGS
+     14 Scaffolds
+     15 Genes
+     16 Proteins
+     17 Release Date
+     18 Modify Date
+     19 Status
+     20 Center
+     21 BioSample Accession
+
+##### prokaryotes.txt
+
+      1 #Organism/Name
+      2 TaxID
+      3 BioProject Accession
+      4 BioProject ID
+      5 Group
+      6 SubGroup
+      7 Size (Mb)
+      8 GC%
+      9 Chromosomes/RefSeq
+     10 Chromosomes/INSDC
+     11 Plasmids/RefSeq
+     12 Plasmids/INSDC
+     13 WGS
+     14 Scaffolds
+     15 Genes
+     16 Proteins
+     17 Release Date
+     18 Modify Date
+     19 Status
+     20 Center
+     21 BioSample Accession
+     22 Assembly Accession
+     23 Reference
+     24 FTP Path
+     25 Pubmed ID
 
 ----------
 
