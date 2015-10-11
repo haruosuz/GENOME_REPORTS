@@ -8,7 +8,7 @@ Last Update: 2015-10-08
 # GENOME_REPORTS project
 Project started 2015-10-08.
 
-## Environment
+## Run environment
 Mac OS X 10.9.5
 
 	$uname -a
@@ -170,9 +170,9 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 #### Count '2 Kingdom'
 
-	FILE=overview.txt
 	FILE=plasmids.txt
-	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | sed s/^/$'\t'/g
+	FILE=overview.txt
+	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | awk '{print $2,":",$1}'
 
 ##### overview.txt
 
@@ -181,6 +181,9 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	1540 Eukaryota
 	  45 Viroids
 	4808 Viruses
+
+[![](https://github.com/haruosuz/GENOME_REPORTS/blob/master/images/wordle_overview.png)]()
+Word clouds (http://www.wordle.net/advanced) representing the abundance of genome projects. The font size of each Group is proportional to its number in <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/overview.txt>.
 
 ##### plasmids.txt
 
@@ -251,6 +254,53 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	4039 Proteobacteria
 	4785 Firmicutes
 
+#### Count '6 SubGroup' for "Cyanobacteria" in prokaryotes.txt
+
+	FILE=prokaryotes.txt
+	grep "Cyanobacteria" $FILE | cut -f6 | sort | uniq -c | sort | sed s/^/$'\t'/g
+
+	   2 Gloeobacteria
+	   2 unclassified Cyanobacteria
+	   6 Pleurocapsales
+	  13 Stigonematales
+	  37 Nostocales
+	 149 Oscillatoriophycideae
+	 156 Prochlorales
+
+#### Count Genus for lactic acid bacteria (LAB) in prokaryotes.txt
+乳酸菌
+
+	FILE=prokaryotes.txt
+	grep "Bifidobacterium\|Enterococcus\|Lactococcus\|Lactobacillus\|Leuconostoc\|Pediococcus" $FILE | cut -f1 | cut -d" " -f1 | sort | uniq -c | sed s/^/$'\t'/g
+
+	 260 Bifidobacterium
+	 853 Enterococcus
+	 494 Lactobacillus
+	  59 Lactococcus
+	  37 Leuconostoc
+	  13 Pediococcus
+
+#### Check '19 Status'
+
+	FILE=eukaryotes.txt
+	FILE=prokaryotes.txt
+	grep -v "^#" $FILE | cut -f19 | sort | uniq -c | sort | sed s/^/$'\t'/g
+
+##### eukaryotes.txt
+
+	   4 Complete
+	  18 Complete Genome
+	 334 Chromosome
+	 944 Contig
+	1127 Scaffold
+
+##### prokaryotes.txt
+
+	 840 Chromosome
+	11957 Scaffold
+	31941 Contig
+	4408 Complete Genome
+
 #### Count '9 Host' in viruses.txt
 
 	FILE=viruses.txt
@@ -277,13 +327,12 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 #### Check Viruses.ids
 
-	grep 'Dengue virus' Viruses.ids | sed s/^/$'\t'/g
+	grep "Dengue virus" Viruses.ids | sed s/^/$'\t'/g
 
 	11053	NC_001477	9626685	0	U88536	Dengue virus 1	viral segment Unknown  
 	11060	NC_001474	158976983	0	U87411	Dengue virus 2	viral segment Unknown  
 	11069	NC_001475	163644368	0	AY099336	Dengue virus 3	viral segment Unknown  
-	11070	NC_002640	12084822	0	AF326825	Dengue virus 4	viral segment Unknown 
-
+	11070	NC_002640	12084822	0	AF326825	Dengue virus 4	viral segment Unknown  
 
 ----------
 
