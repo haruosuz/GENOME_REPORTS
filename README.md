@@ -1,7 +1,7 @@
 ----------
 
 Haruo Suzuki (haruo[at]g-language[dot]org)  
-Last Update: 2015-10-08  
+Last Update: 2015-10-12  
 
 ----------
 
@@ -44,13 +44,12 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 ## Steps
 
 	mkdir -p GENOME_REPORTS/{bin,data,results}
-	mkdir results-$(date +%F)
 
 ### Inspecting Data
 
-	cd data/
+	cd GENOME_REPORTS/data/
 
-#### Count '2 Kingdom'
+#### Count 'Kingdom'
 
 	FILE=plasmids.txt
 	FILE=overview.txt
@@ -73,84 +72,104 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	5878 Bacteria
 	 108 Eukaryota
 
-#### Count '5 Group'
+#### Count 'Group'
 
-	FILE=prokaryotes.txt
-	FILE=viruses.txt
 	FILE=eukaryotes.txt
-	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort | awk '{print $2,":",$1}' | sed s/^/$'\t'/g
+	FILE=viruses.txt
+	FILE=prokaryotes.txt
+	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort -rn | sed s/^/$'\t'/g
 
 ##### eukaryotes.txt
 
-	  13 Other
-	 248 Plants
-	 311 Protists
-	 687 Animals
 	1168 Fungi
+	 687 Animals
+	 311 Protists
+	 248 Plants
+	  13 Other
+
+	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort -rn | awk '{print $2,":",$1}' | sed s/^/$'\t'/g
 
 [![](https://github.com/haruosuz/GENOME_REPORTS/blob/master/images/wordle_eukaryotes.png)]()
 [Word clouds](http://www.wordle.net/advanced) representing the abundance of genome projects. The font size of each Group is proportional to its number in <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt>.
 
-##### viruses.txt
-
-	   1 Deltavirus
-	   2 unclassified archaeal viruses
-	   4 Avsunviroidae
-	   5 unclassified viroids
-	   5 unclassified virophages
-	   6 Other
-	  10 unassigned viruses
-	  31 unclassified phages
-	  36 Pospiviroidae
-	  58 unclassified viruses
-	 138 Retro-transcribing viruses
-	 217 Satellites
-	 223 dsRNA viruses
-	 843 ssDNA viruses
-	1304 ssRNA viruses
-	2067 dsDNA viruses, no RNA stage
-
 ##### prokaryotes.txt
 
-	   1 Aquificae
-	   1 Caldiserica
-	   1 Deinococcus-Thermus
-	   1 Gemmatimonadetes
-	   1 Parvarchaeota
-	   1 Thermotogae
-	   2 Nitrospirae
-	   2 Planctomycetes
-	   3 Aenigmarchaeota
+	22327 Proteobacteria
+	16987 Firmicutes
+	5067 Actinobacteria
+	1160 Bacteroidetes/Chlorobi group
+	1048 unclassified Bacteria
+	 569 Spirochaetes
+	 402 Euryarchaeota
+	 365 Cyanobacteria
+	 300 Tenericutes
+	 259 Chlamydiae/Verrucomicrobia group
+	 101 Crenarchaeota
+	  95 Fusobacteria
+	  64 Deinococcus-Thermus
+	  57 Chloroflexi
+	  56 Thaumarchaeota
+	  48 Fibrobacteres/Acidobacteria group
+	  46 Thermotogae
+	  40 Planctomycetes
+	  22 Aquificae
+	  20 Nitrospirae
+	  19 Synergistetes
+	  17 unclassified Archaea
+	  10 Nanoarchaeota
+	  10 Gemmatimonadetes
+	   8 Thermodesulfobacteria
+	   6 environmental samples
+	   6 Nitrospinae
+	   6 Deferribacteres
+	   6 Bathyarchaeota
+	   4 Nanohaloarchaeota
+	   3 Elusimicrobia
 	   3 Diapherotrites
-	   3 Nanohaloarchaeota
-	   6 Chloroflexi
-	   9 Nanoarchaeota
-	  10 Tenericutes
-	  12 Crenarchaeota
-	  15 Fibrobacteres/Acidobacteria group
-	  17 Chlamydiae/Verrucomicrobia group
-	  19 Euryarchaeota
-	  21 Bacteroidetes/Chlorobi group
-	  28 Thaumarchaeota
-	  34 Spirochaetes
-	  44 Cyanobacteria
-	 139 unclassified Bacteria
-	1789 Actinobacteria
-	4039 Proteobacteria
-	4785 Firmicutes
+	   3 Armatimonadetes
+	   3 Aenigmarchaeota
+	   2 Dictyoglomi
+	   2 Chrysiogenetes
+	   2 Caldiserica
+	   1 Parvarchaeota
+	   1 Lokiarchaeota
+	   1 Korarchaeota
 
-#### Count '6 SubGroup' for "Cyanobacteria" in prokaryotes.txt
+##### viruses.txt
+
+	2067 dsDNA viruses, no RNA stage
+	1304 ssRNA viruses
+	 843 ssDNA viruses
+	 223 dsRNA viruses
+	 217 Satellites
+	 138 Retro-transcribing viruses
+	  58 unclassified viruses
+	  36 Pospiviroidae
+	  31 unclassified phages
+	  10 unassigned viruses
+	   6 Other
+	   5 unclassified virophages
+	   5 unclassified viroids
+	   4 Avsunviroidae
+	   2 unclassified archaeal viruses
+	   1 Deltavirus
+
+#### Count 'SubGroup' for "Cyanobacteria" in prokaryotes.txt
 
 	FILE=prokaryotes.txt
-	grep "Cyanobacteria" $FILE | cut -f6 | sort | uniq -c | sort | sed s/^/$'\t'/g
+	grep "Cyanobacteria" $FILE | cut -f6 | sort -u | perl -pe 's/\n/\\|/g'
 
-	   2 Gloeobacteria
-	   2 unclassified Cyanobacteria
-	   6 Pleurocapsales
-	  13 Stigonematales
-	  37 Nostocales
-	 149 Oscillatoriophycideae
+	Gloeobacteria\|Nostocales\|Oscillatoriophycideae\|Pleurocapsales\|Prochlorales\|Stigonematales\|unclassified Cyanobacteria\|
+
+	grep "Cyanobacteria" $FILE | cut -f6 | sort | uniq -c | sort -rn | sed s/^/$'\t'/g
+
 	 156 Prochlorales
+	 149 Oscillatoriophycideae
+	  37 Nostocales
+	  13 Stigonematales
+	   6 Pleurocapsales
+	   2 unclassified Cyanobacteria
+	   2 Gloeobacteria
 
 #### Count Genus for lactic acid bacteria (LAB) in prokaryotes.txt
 乳酸菌
@@ -165,50 +184,50 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	  37 Leuconostoc
 	  13 Pediococcus
 
-#### Check '19 Status'
+#### Check 'Status'
 
-	FILE=eukaryotes.txt
 	FILE=prokaryotes.txt
-	grep -v "^#" $FILE | cut -f19 | sort | uniq -c | sort | sed s/^/$'\t'/g
+	FILE=eukaryotes.txt
+	grep -v "^#" $FILE | cut -f19 | sort | uniq -c | sort -rn | sed s/^/$'\t'/g
 
 ##### eukaryotes.txt
 
-	   4 Complete
-	  18 Complete Genome
-	 334 Chromosome
-	 944 Contig
 	1127 Scaffold
+	 944 Contig
+	 334 Chromosome
+	  18 Complete Genome
+	   4 Complete
 
 ##### prokaryotes.txt
 
-	 840 Chromosome
-	11957 Scaffold
 	31941 Contig
+	11957 Scaffold
 	4408 Complete Genome
+	 840 Chromosome
 
-#### Count '9 Host' in viruses.txt
+#### Count 'Host' in viruses.txt
 
 	FILE=viruses.txt
-	grep -v "^#" $FILE | cut -f9 | sort | uniq -c | sort | sed s/^/$'\t'/g
+	grep -v "^#" $FILE | cut -f9 | sort | uniq -c | sort -rn | sed s/^/$'\t'/g
 
-	   3 enviroment
-	   5 diatom
-	   5 human
-	   5 invertebrates, vertebrates
-	  15 -
-	  36 protozoa
-	  39 algae
-	  40 vertebrates, invertebrates
-	  59 invertebrates, plants
-	  63 archaea
-	  69 environment
-	  82 vertebrates, invertebrates, human
-	  99 fungi
-	 287 vertebrates, human
-	 324 invertebrates
-	 888 vertebrates
-	1331 plants
 	1600 bacteria
+	1331 plants
+	 888 vertebrates
+	 324 invertebrates
+	 287 vertebrates, human
+	  99 fungi
+	  82 vertebrates, invertebrates, human
+	  69 environment
+	  63 archaea
+	  59 invertebrates, plants
+	  40 vertebrates, invertebrates
+	  39 algae
+	  36 protozoa
+	  15 -
+	   5 invertebrates, vertebrates
+	   5 human
+	   5 diatom
+	   3 enviroment
 
 #### Check Viruses.ids
 
