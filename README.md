@@ -9,15 +9,8 @@ Last Update: 2015-10-08
 Project started 2015-10-08.
 
 ## Run environment
-Mac OS X 10.9.5
-
-	$uname -a
-	Darwin localhost 13.4.0 Darwin Kernel Version 13.4.0: Wed Mar 18 16:20:14 PDT 2015; root:xnu-2422.115.14~1/RELEASE_X86_64 x86_64
-
-	> sessionInfo()
-	R version 3.2.2 (2015-08-14)
-	Platform: x86_64-apple-darwin13.4.0 (64-bit)
-	Running under: OS X 10.9.5 (Mavericks)
+Mac OS X 10.9.5  
+R version 3.2.2 (2015-08-14)  
 
 ## Project directories
 
@@ -31,7 +24,6 @@ Mac OS X 10.9.5
 Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 	(time sh ../bin/get_GENOME_REPORTS.sh &) > stderr.log 2>&1
-
 
 ## Scripts
 
@@ -62,7 +54,7 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 	FILE=plasmids.txt
 	FILE=overview.txt
-	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | awk '{print $2,":",$1}'
+	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | awk '{print $2,":",$1}' | sed s/^/$'\t'/g
 
 ##### overview.txt
 
@@ -84,9 +76,9 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 #### Count '5 Group'
 
 	FILE=prokaryotes.txt
-	FILE=eukaryotes.txt
 	FILE=viruses.txt
-	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort | sed s/^/$'\t'/g
+	FILE=eukaryotes.txt
+	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort | awk '{print $2,":",$1}' | sed s/^/$'\t'/g
 
 ##### eukaryotes.txt
 
@@ -343,13 +335,11 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 ## Results & Discussion
 
-
 ----------
 
 ## References
+- ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/README
 - [Nucleic Acids Res. 2015 Jan;43(Database issue):D599-605. "Update on RefSeq microbial genomes resources."](http://www.ncbi.nlm.nih.gov/pubmed/25510495)
-- []()
-- []()
 - []()
 - [ncbi_ftp_download](https://github.com/aleimba/bac-genomics-scripts/tree/master/ncbi_ftp_download) | Scripts to batch download all bacterial genomes of a genus/species from NCBI's FTP site (RefSeq and GenBank) for easy access.
 
