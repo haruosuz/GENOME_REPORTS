@@ -157,10 +157,6 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 #### Count 'SubGroup' for "Cyanobacteria" in prokaryotes.txt
 
 	FILE=prokaryotes.txt
-	grep "Cyanobacteria" $FILE | cut -f6 | sort -u | perl -pe 's/\n/\\|/g'
-
-	Gloeobacteria\|Nostocales\|Oscillatoriophycideae\|Pleurocapsales\|Prochlorales\|Stigonematales\|unclassified Cyanobacteria\|
-
 	grep "Cyanobacteria" $FILE | cut -f6 | sort | uniq -c | sort -rn | sed s/^/$'\t'/g
 
 	 156 Prochlorales
@@ -237,6 +233,13 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	11060	NC_001474	158976983	0	U87411	Dengue virus 2	viral segment Unknown  
 	11069	NC_001475	163644368	0	AY099336	Dengue virus 3	viral segment Unknown  
 	11070	NC_002640	12084822	0	AF326825	Dengue virus 4	viral segment Unknown  
+
+	grep -i "ebola" Viruses.ids | sed s/^/$'\t'/g
+
+	186539	NC_004161	22789222	0	AF522874	Reston ebolavirus	viral segment Unknown  
+	186540	NC_006432	55770807	0	AY729654	Sudan ebolavirus	viral segment Unknown  
+	186541	NC_014372	302315369	0	FJ217162	Tai Forest ebolavirus	viral segment Unknown  
+	186538	NC_002549	10313991	0	AF086833	Zaire ebolavirus	viral segment Unknown  
 
 ----------
 
