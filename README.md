@@ -1,7 +1,7 @@
 ----------
 
 Haruo Suzuki (haruo[at]g-language[dot]org)  
-Last Update: 2015-10-12  
+Last Update: 2015-10-21  
 
 ----------
 
@@ -45,6 +45,8 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 	mkdir -p GENOME_REPORTS/{bin,data,results}
 
+	echo "tab" | sed s/^/$'\t'/g
+
 ### Inspecting Data
 
 	cd GENOME_REPORTS/data/
@@ -53,7 +55,7 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 	FILE=plasmids.txt
 	FILE=overview.txt
-	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | awk '{print $2,":",$1}' | sed s/^/$'\t'/g
+	grep -v "^#" $FILE | cut -f2 | sort | uniq -c | awk '{print $2,":",$1}'
 
 ##### overview.txt
 
@@ -87,7 +89,7 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	 248 Plants
 	  13 Other
 
-	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort -rn | awk '{print $2,":",$1}' | sed s/^/$'\t'/g
+	grep -v "^#" $FILE | cut -f5 | sort | uniq -c | sort -rn | awk '{print $2,":",$1}'
 
 [![](https://github.com/haruosuz/GENOME_REPORTS/blob/master/images/wordle_eukaryotes.png)]()
 [Word clouds](http://www.wordle.net/advanced) representing the abundance of genome projects. The font size of each Group is proportional to its number in <ftp://ftp.ncbi.nih.gov/genomes/GENOME_REPORTS/eukaryotes.txt>.
@@ -182,6 +184,13 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 
 #### Check 'Status'
 
+	grep -v "^#" viruses.txt | cut -f15 | sort | uniq -c | sort -rn
+
+	4883 Complete Genome
+	  44 Complete
+	  12 Chromosome
+	  11 Chromosome(s)
+
 	FILE=prokaryotes.txt
 	FILE=eukaryotes.txt
 	grep -v "^#" $FILE | cut -f19 | sort | uniq -c | sort -rn | sed s/^/$'\t'/g
@@ -225,21 +234,62 @@ Data was downloaded on 2015-10-08 from the FTP site into `data/`, using:
 	   5 diatom
 	   3 enviroment
 
-#### Check Viruses.ids
+#### Look at specific viruses
 
-	grep "Dengue virus" Viruses.ids | sed s/^/$'\t'/g
+	NAME="ebola"
+	NAME="Dengue virus"
+	grep -i "$NAME" viruses.txt
 
-	11053	NC_001477	9626685	0	U88536	Dengue virus 1	viral segment Unknown  
-	11060	NC_001474	158976983	0	U87411	Dengue virus 2	viral segment Unknown  
-	11069	NC_001475	163644368	0	AY099336	Dengue virus 3	viral segment Unknown  
-	11070	NC_002640	12084822	0	AF326825	Dengue virus 4	viral segment Unknown  
+	Dengue virus 1	11053	PRJNA15306	15306	ssRNA viruses	Flaviviridae	10.735	46.7	vertebrates, invertebrates, human	1	1	1	1997/02/28	2015/09/15	Complete Genome
+	Dengue virus 4	11070	PRJNA15599	15599	ssRNA viruses	Flaviviridae	10.649	47.1	vertebrates, invertebrates, human	1	1	1	2001/01/03	2015/09/15	Complete Genome
+	Dengue virus 3	11069	PRJNA15598	15598	ssRNA viruses	Flaviviridae	10.707	46.7	vertebrates, invertebrates, human	1	1	1	1993/08/02	2015/09/14	Complete Genome
+	Dengue virus 2	11060	PRJNA20183	20183	ssRNA viruses	Flaviviridae	10.723	45.8	vertebrates, invertebrates, human	1	1	1	1993/08/02	2015/09/15	Complete Genome
 
-	grep -i "ebola" Viruses.ids | sed s/^/$'\t'/g
+	Zaire ebolavirus	186538	PRJNA14703	14703	ssRNA viruses	Filoviridae	18.959	41.1	vertebrates, human	1	7	9	1999/02/10	2015/03/30	Complete Genome
+	Reston ebolavirus	186539	PRJNA15006	15006	ssRNA viruses	Filoviridae	18.891	40.6	vertebrates, human	1	8	8	2002/09/04	2014/11/12	Complete Genome
+	Sudan ebolavirus	186540	PRJNA15012	15012	ssRNA viruses	Filoviridae	18.875	41.3	vertebrates, human	1	7	8	2004/09/25	2014/11/12	Complete Genome
+	Tai Forest ebolavirus	186541	PRJNA51257	51257	ssRNA viruses	Filoviridae	18.935	42.3	vertebrates, human	1	7	9	2008/11/21	2014/11/12	Complete Genome
 
-	186539	NC_004161	22789222	0	AF522874	Reston ebolavirus	viral segment Unknown  
-	186540	NC_006432	55770807	0	AY729654	Sudan ebolavirus	viral segment Unknown  
-	186541	NC_014372	302315369	0	FJ217162	Tai Forest ebolavirus	viral segment Unknown  
-	186538	NC_002549	10313991	0	AF086833	Zaire ebolavirus	viral segment Unknown  
+----------
+
+#### Download RefSeq sequences of Viruses:
+
+	NAME="ebola"
+	NAME="Dengue virus"
+	NAME=$(echo $NAME | sed 's/ /*/g')
+	wget -cm -A "*.faa,*.fna"  "ftp://ftp.ncbi.nlm.nih.gov/genomes/Viruses/*$NAME*"
+
+#### Download RefSeq genomes of Bacteria:
+
+	NAME="Lactobacillus crispatus"
+	NAME=$(echo $NAME | sed 's/ /_/g')
+	wget -cm -A "*.faa,*.fna"  "ftp://ftp.ncbi.nlm.nih.gov/genomes/Bacteria/*$NAME*"
+
+#### Look at header lines (those that begin with >) in the FASTA files
+
+	grep "^>" ftp.ncbi.nlm.nih.gov/genomes/Viruses/Sudan_ebolavirus_uid15012/NC_006432.faa
+
+	>gi|55770808|ref|YP_138520.1| nucleoprotein [Sudan ebolavirus]
+	>gi|55770809|ref|YP_138521.1| polymerase complex protein [Sudan ebolavirus]
+	>gi|55770810|ref|YP_138522.1| matrix protein [Sudan ebolavirus]
+	>gi|55770812|ref|YP_138523.1| spike glycoprotein [Sudan ebolavirus]
+	>gi|55770811|ref|YP_138524.1| small secreted glycoprotein [Sudan ebolavirus]
+	>gi|55770813|ref|YP_138525.1| minor nucleoprotein [Sudan ebolavirus]
+	>gi|55770814|ref|YP_138526.1| membrane-associated protein [Sudan ebolavirus]
+	>gi|55770815|ref|YP_138527.1| RNA-dependent RNA polymerase [Sudan ebolavirus]
+
+	grep "^>" ftp.ncbi.nlm.nih.gov/genomes/Bacteria/*/*.faa | head | sed s/^/$'\t'/g
+
+	>gi|295691863|ref|YP_003600473.1| chromosomal replication initiator protein dnaa [Lactobacillus crispatus ST1]
+	>gi|295691864|ref|YP_003600474.1| DNA polymerase iii, beta subunit [Lactobacillus crispatus ST1]
+	>gi|295691865|ref|YP_003600475.1| RNA-binding s4 domain protein [Lactobacillus crispatus ST1]
+	>gi|295691866|ref|YP_003600476.1| DNA replication and repair protein recf [Lactobacillus crispatus ST1]
+	>gi|295691867|ref|YP_003600477.1| DNA gyrase, b subunit [Lactobacillus crispatus ST1]
+	>gi|295691868|ref|YP_003600478.1| DNA gyrase, a subunit [Lactobacillus crispatus ST1]
+	>gi|295691869|ref|YP_003600479.1| 30S ribosomal protein s6 [Lactobacillus crispatus ST1]
+	>gi|295691870|ref|YP_003600480.1| single-stranded DNA-binding protein [Lactobacillus crispatus ST1]
+	>gi|295691871|ref|YP_003600481.1| 30S ribosomal protein s18 [Lactobacillus crispatus ST1]
+	>gi|295691872|ref|YP_003600482.1| prophage repressor [Lactobacillus crispatus ST1]
 
 ----------
 
